@@ -1,0 +1,38 @@
+services:
+  contacts-spring:
+    build: ./ContactsSpring
+    ports:
+      - "16900:8080"
+    restart: always
+    networks:
+      - springmysql-net
+    environment:
+      - spring_datasource_url=jdbc:mysql://mysqldb:3306/Contacts?allowPublicKeyRetrieval=true 
+      - spring_datasource_username=user
+      - spring_datasource_password=password
+    depends_on:
+      - mysqldb
+
+  contacts-angular-app:
+    build: ./ContactsWebApp
+    ports:
+      - "16990:80"
+    restart: always
+    networks:
+      - springmysql-net
+    
+  mysqldb:
+      image: "mysql:8.0"
+      restart: always
+      ports:
+        - 15900:3306
+      networks:
+        - springmysql-net 
+      environment:
+        MYSQL_DATABASE: Contacts
+        MYSQL_USER: user
+        MYSQL_PASSWORD: password
+        MYSQL_ROOT_PASSWORD: root
+
+networks:
+  springmysql-net:
