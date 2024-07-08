@@ -1,0 +1,79 @@
+<div id="container">
+    <div id="left-pane">
+        <div id="bottom-panel">
+        </div>
+        <div id="image-container">
+            <ng-lottie
+                width="600px"
+                height="600px"
+                containerClass="moving-box another-class"
+                [options]="{
+                    path: '/assets/address-book.json',
+                    loop: true
+                    }"
+                >
+            </ng-lottie>
+        </div>
+    </div>
+    <div id="right-pane">
+        <div id="app-title">
+            Contacts
+        </div>
+
+        <div style="margin-top: 2%;" id="auth-phase-title">
+            {{this.authPashe == this.allAuthPhases.LOGIN ? 'LOGIN' : 'REGISTER'}}
+        </div>
+
+        <form *ngIf="this.authPashe == this.allAuthPhases.LOGIN" id="form-login-container" [formGroup] = "this.loginForm" (ngSubmit)="this.onLoginSubmit(loginForm)">
+            <div style="margin-top: 10%;">
+                <span class="p-float-label"> 
+                    <input formControlName="username" type="text" id="gfg-lg" class="p-inputtext-lg" pInputText /> 
+                    <label>Username</label> 
+                </span>
+            </div>
+
+            <div style="margin-top: 10%; margin-bottom:10%">
+                <span class="p-float-label"> 
+                    <input formControlName="password" type="password" id="gfg-lg" class="p-inputtext-lg" pInputText /> 
+                    <label>Password</label> 
+                </span>
+            </div>
+
+            <p-button type="submit" label="LOGIN!" [text]="true" [raised]="true" severity="info" />
+        </form>
+
+        <form *ngIf="this.authPashe == this.allAuthPhases.REGISTRATION" id="form-login-container" [formGroup] = "this.registrationForm" (ngSubmit)="this.onRegistrationSubmit(registrationForm)">
+            <div style="margin-top: 10%;">
+                <span class="p-float-label"> 
+                    <input formControlName="username" type="text" class="p-inputtext-lg" pInputText /> 
+                    <label>Username</label> 
+                </span>
+            </div>
+
+            <div style="margin-top: 10%; margin-bottom:10%">
+                <span class="p-float-label"> 
+                    <input formControlName="password" type="password" class="p-inputtext-lg" pInputText /> 
+                    <label>Password</label> 
+                </span>
+            </div>
+
+            <p-button type="submit" label="REGISTER!" [text]="true" [raised]="true" severity="info" />
+        </form>
+
+        <div style="margin-top: 2%;" id="auth-phase-change-description" (click)="this.changeAuthPhase()">
+            <div *ngIf="this.authPashe == this.allAuthPhases.LOGIN">
+                If you don't have an account yet click here to register!
+            </div>
+
+            <div *ngIf="this.authPashe == this.allAuthPhases.REGISTRATION">
+                If you already have an account, go back to login to log in!
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-toast/>
+
+<div id="created-by">
+    Created by Alessio Dinatale for the Turing s.r.l. project.
+</div>

@@ -1,0 +1,84 @@
+@import "../../../../styles.scss";
+
+#container {
+    display: flex;
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+#home-title{
+    margin-top: 8%;
+    margin-left: 5%;
+    font-size: 2vw;
+    color: rgb(98, 166, 255);
+    font-weight: bold;
+}
+
+#address-book-table{
+    position: relative;
+    margin: 5%;
+    height: 90%;
+    width: 90%;
+    border-radius: 10px; /* Bordo arrotondato */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Ombra per l'effetto rialzato */
+    border-right: 2px solid rgba(0, 0, 0, 0.3); /* Bordo destro */
+    transition: box-shadow 0.3s ease; /* Transizione per l'ombra */
+}
+
+#table{
+    height: 90%;
+}
+
+#side-panel-cotainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    height: 100%;
+    background-color: rgb(214, 233, 255);;
+    border-radius: 0 20px 20px 0;
+    box-shadow: 0 8px 8px rgb(182, 213, 255);
+    display: flex;
+    justify-content: start;
+    align-items: start;
+}
+
+.table-actions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+#logout-button{
+    position: absolute;
+    left: 1%;
+    bottom: 10px;
+}
+
+#add-contact-btn{
+    position: relative;
+}
+
+#delete-all-contact-btn{
+    position: relative;
+    margin-left: 10px;
+}
+
+
+#btn-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    position: absolute;
+    bottom: 2%;
+    left: 2%;
+}

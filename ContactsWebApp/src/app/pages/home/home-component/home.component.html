@@ -1,0 +1,209 @@
+<div id="container">
+    <div id="side-panel-cotainer">
+        <div id="home-title">
+            Welcome {{this.user.username}}
+        </div>
+    </div>
+
+    <div id="address-book-table">
+        <div id="table">
+            <p-table 
+            [scrollable]="true"
+            [scrollHeight]="'flex'"
+            [value]="this.user.addressBook.contacts" 
+            [(selection)]="this.selectedContacts" 
+            dataKey="id" 
+            [tableStyle]="{'max-height' : '80%', 'width' : '100%'}">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 4rem"><p-tableHeaderCheckbox /></th>
+                        <th>Name</th>
+                        <th>Surname</th>
+                        <th>Address</th>
+                        <th>Phone number</th>
+                        <th>Age</th>
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-contact>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="contact" />
+                        </td>
+                        <td>{{contact.name}}</td>
+                        <td>{{contact.surname}}</td>
+                        <td>{{contact.address}}</td>
+                        <td>{{contact.phoneNumber}}</td>
+                        <td>{{contact.age}}</td>
+                        <td>
+                            <div class="table-actions">
+                                <div style="padding-right: 5%;">
+                                    <p-button icon="pi pi-user" [rounded]="true" severity="info" size="small" (onClick)="this.openPanelToUpdate(contact)"/>
+                                </div>
+                                <div style="padding-right: 5%;">
+                                    <p-button icon="pi pi-times" [rounded]="true" severity="danger" size="small" (onClick)="this.openDeleteDialog(contact)"/>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+        </p-table>
+        </div>
+        <div id="btn-container">
+            <div id="add-contact-btn">
+                <p-button label="Add new contact" [raised]="true" (onClick)="this.showDialogToCreate = true;"/>
+            </div>
+    
+            <div id="delete-all-contact-btn">
+                <p-button label="Remove all" severity="danger" [raised]="true" (onClick)="this.openDialogToRemoveSelectedContacts()" [disabled]="this.selectedContacts.length == 0"/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog 
+    header="Header" 
+    [(visible)]="this.showDialogToUpdate" 
+    [modal]="true" 
+    [style]="{ width: '25rem' }">
+        <ng-template pTemplate="header">
+            <div class="align-items-center justify-content-center " style="display:flex; flex-direction: row; justify-content:center; align-items:center; width: 300px;">
+                <p-button icon="pi pi-user" [rounded]="true" severity="info" size="small" disabled="true"/>
+                <div class="font-bold white-space-nowrap" style="font-size: medium; padding-left: 4%">
+                    <span style="margin-top: 5%;" class="p-text-secondary block mb-5">Update contact information.</span>
+                </div>
+            </div>
+        </ng-template>
+ 
+        <form id="form-container" [formGroup] = "this.formToUpdate">
+            <div style="margin-top: 10%;">
+                <span class="p-float-label"> 
+                    <input formControlName="name" type="text" class="p-inputtext-lg" pInputText /> 
+                    <label for="name">Name</label> 
+                </span>
+            </div>
+
+            <div style="margin-top: 10%;">
+                <span class="p-float-label"> 
+                    <input formControlName="surname" type="text" class="p-inputtext-lg" pInputText /> 
+                    <label for="surname">Surname</label> 
+                </span>
+            </div>
+
+            <div style="margin-top: 10%;">
+                <span class="p-float-label"> 
+                    <input formControlName="address" type="text" class="p-inputtext-lg" pInputText /> 
+                    <label for="address">Address</label> 
+                </span>
+            </div>
+
+            <div style="margin-top: 10%;">
+                <span class="p-float-label"> 
+                    <input formControlName="phoneNumber" type="text" class="p-inputtext-lg" pInputText /> 
+                    <label for="phoneNumber">Phone number</label> 
+                </span>
+            </div>
+
+            <div style="margin-top: 10%;">
+                <span class="p-float-label"> 
+                    <input formControlName="age" type="text" class="p-inputtext-lg" pInputText /> 
+                    <label for="age">Age</label> 
+                </span>
+            </div>
+        </form>
+
+        <ng-template pTemplate="footer" style="margin-top: 10%;">
+            <p-button 
+                label="Cancel" 
+                [text]="true" 
+                severity="secondary" 
+                (click)="this.showDialogToUpdate = false" 
+                [loading]="this.updateLoading"
+                />
+            <p-button 
+                label="Save" 
+                [outlined]="true" 
+                severity="secondary" 
+                (click)="this.updateContact()"
+                [loading]="this.updateLoading"
+              />
+        </ng-template>
+</p-dialog>
+
+
+<p-dialog 
+    header="Header" 
+    [(visible)]="this.showDialogToCreate" 
+    [modal]="true" 
+    [style]="{ width: '25rem' }">
+        <ng-template pTemplate="header">
+            <div class="align-items-center justify-content-center " style="display:flex; flex-direction: row; justify-content:center; align-items:center; width: 300px;">
+                <p-button icon="pi pi-user" [rounded]="true" severity="info" size="small" disabled="true"/>
+                <div class="font-bold white-space-nowrap" style="font-size: medium; padding-left: 4%">
+                    <span style="margin-top: 5%;" class="p-text-secondary block mb-5">Create new contact.</span>
+                </div>
+            </div>
+        </ng-template>
+ 
+        <form id="form-container" [formGroup] = "this.formToCreate">
+            <div style="margin-top: 10%;">
+                <span class="p-float-label"> 
+                    <input formControlName="name" type="text" class="p-inputtext-lg" pInputText /> 
+                    <label for="name">Name</label> 
+                </span>
+            </div>
+
+            <div style="margin-top: 10%;">
+                <span class="p-float-label"> 
+                    <input formControlName="surname" type="text" class="p-inputtext-lg" pInputText /> 
+                    <label for="surname">Surname</label> 
+                </span>
+            </div>
+
+            <div style="margin-top: 10%;">
+                <span class="p-float-label"> 
+                    <input formControlName="address" type="text" class="p-inputtext-lg" pInputText /> 
+                    <label for="address">Address</label> 
+                </span>
+            </div>
+
+            <div style="margin-top: 10%;">
+                <span class="p-float-label"> 
+                    <input formControlName="phoneNumber" type="text" class="p-inputtext-lg" pInputText /> 
+                    <label for="phoneNumber">Phone number</label> 
+                </span>
+            </div>
+
+            <div style="margin-top: 10%;">
+                <span class="p-float-label"> 
+                    <input formControlName="age" type="text" class="p-inputtext-lg" pInputText /> 
+                    <label for="age">Age</label> 
+                </span>
+            </div>
+        </form>
+
+        <ng-template pTemplate="footer" style="margin-top: 10%;">
+            <p-button 
+                label="Cancel" 
+                [text]="true" 
+                severity="secondary" 
+                (click)="this.showDialogToCreate= false" 
+                [loading]="this.createLoading"
+                />
+            <p-button 
+                label="Save" 
+                [outlined]="true" 
+                severity="secondary" 
+                (click)="this.createContact()"
+                [loading]="this.createLoading"
+              />
+        </ng-template>
+</p-dialog>
+
+<div id="logout-button">
+    <p-button label="Logout" [raised]="true" severity="danger" (click)="this.logout()"/>
+</div>
+
+<p-toast/>
+
+<p-confirmDialog />
