@@ -1,5 +1,9 @@
 # ContactsProject
 
+Si prega di leggere il file "Contacts Readme.pdf" per dettagli maggiori.
+
+# Come Avviare L'applicazione
+
 L’applicazione è composta da 3 entità principali:
 
 - Webapp Angular (Frontend)
