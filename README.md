@@ -4,6 +4,10 @@ Si prega di leggere il file "Contacts Readme.pdf" per dettagli maggiori.
 
 # Come Avviare L'applicazione
 
+1. Effettuare il clone della repository
+2. Entrare nella cartella creata
+3. eseguire il comando: docker compose up
+   
 L’applicazione è composta da 3 entità principali:
 
 - Webapp Angular (Frontend)
